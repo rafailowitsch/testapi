@@ -6,9 +6,9 @@ import (
 )
 
 type post struct {
-	title  string `json:"title"`
-	body   string `json:"body"`
-	author *user
+	Title  string `json:"title"`
+	Body   string `json:"body"`
+	Author string `json:"username"`
 }
 
 func (p *post) createPost(db *sql.DB) error {
