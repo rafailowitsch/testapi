@@ -135,17 +135,6 @@ func TestGetPost(t *testing.T) {
 	checkResponseCode(t, http.StatusOK, response.Code)
 }
 
-func addPosts(count int) {
-	if count < 1 {
-		count = 1
-	}
-
-	for i := 0; i < count; i++ {
-		a.DB.Exec("INSERT INTO posts(title, body, author) VALUES($1, $2, $3)",
-			"Post "+strconv.Itoa(i), "Body "+strconv.Itoa(i), "Author "+strconv.Itoa(i))
-	}
-}
-
 func TestUpdatePost(t *testing.T) {
 	clearTable()
 	addPosts(1)
@@ -205,4 +194,16 @@ func TestDeletePost(t *testing.T) {
 	req, _ = http.NewRequest("GET", "/post/1", nil)
 	response = executeRequest(req)
 	checkResponseCode(t, http.StatusNotFound, response.Code)
+}
+
+// add test post(-s)
+func addPosts(count int) {
+	if count < 1 {
+		count = 1
+	}
+
+	for i := 0; i < count; i++ {
+		a.DB.Exec("INSERT INTO posts(title, body, author) VALUES($1, $2, $3)",
+			"Post "+strconv.Itoa(i), "Body "+strconv.Itoa(i), "Author "+strconv.Itoa(i))
+	}
 }
